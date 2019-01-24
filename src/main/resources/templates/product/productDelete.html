@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Delete</title>
+</head>
+<body>
+<a th:href="@{'/product/delete/'+${id}+'/confirmed'}">TAK</a>
+<br>
+<br>
+<a th:href="@{/product/productList}">NIE</a>
+</body>
+</html>

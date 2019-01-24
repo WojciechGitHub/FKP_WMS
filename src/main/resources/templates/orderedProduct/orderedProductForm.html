@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ordered Product Form</title>
+</head>
+<body>
+
+<h1>Ordered Products of the Parcel</h1>
+<table border="1">
+    <tr>
+        <th>Nazwa</th>
+        <th>Ilosc zamowiona</th>
+        <th>Ilosc odebrana</th>
+        <th>Ilosc wydana</th>
+    </tr>
+    <tr th:each="p: ${parcelProducts}">
+        <td th:text="${p.getProduct().description}"></td>
+        <td th:text="${p.getOrderedQuantity()}"></td>
+        <td th:text="${p.getReceivedQuantity()}"></td>
+        <td th:text="${p.getDistendedQuantity()}"></td>
+    </tr>
+</table>
+
+
+<h1>Ordered Product Form</h1>
+<form th:object="${orderedProduct}" method="post">
+       <select  th:field="*{product}">Wybierz
+           <option th:each="p : ${products}" th:value="${p.id}" th:text="${p.producer}">
+           </option>
+       </select>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+<br>
+<a th:href="@{'/orderedProduct/add/'+${parcelId}+'/volunteerProducts'}">przypisz produkty do wolontariusza</a>
+<br>
+<a th:href="@{/}">powrot na strone startowa</a>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitty Litter List</title>
+</head>
+<body>
+<h1>Dodaj żwirek</h1>
+<a th:href="@{/product/add}">Dodawanie zwirku</a>
+<br>
+<br>
+<h1>Tabela żwirków</h1>
+
+<table border="1">
+    <tr>
+        <th>Producent</th>
+        <th>Nazwa</th>
+        <th colspan="2">Waga</th>
+        <th>Rodzaj</th>
+        <th>zamówienie</th>
+        <th>rezerwa</th>
+        <th>Uwagi</th>
+        <th>Rezerwacja przez wolo</th>
+        <th>Kody kreskowe</th>
+        <th>Edytuj</th>
+        <th>Usuń</th>
+        <th>Dodaj kod kreskowy</th>
+    </tr>
+    <tr th:each="product: ${products}">
+        <td th:text="${product.producer}"></td>
+        <td th:text="${product.description}"></td>
+        <!--<td th:each="${product.getBarcodes()}"></td>-->
+        <td th:text="${product.grammage}"></td>
+        <td th:text="${product.unitOfGrammage}"></td>
+        <td th:text="${product.sort}"></td>
+        <td th:text="${product.orderAmount}"></td>
+        <td th:text="${product.reserveAmount}"></td>
+        <td th:text="${product.remarks}"></td>
+        <td th:text="${product.reservationByVolunteer}"></td>
+        <td>
+
+            <p th:each="b : ${product.getBarcodes()}" th:value="${b.code}" th:text="${b.code}">
+            </p>
+
+        </td>
+        <td><a th:href="@{'/product/update/'+${product.id}}">Edit</a></td>
+        <td><a th:href="@{'/product/delete/'+${product.id}}">Usuń</a></td>
+        <td><a th:href="@{'/barcode/add/'+${product.id}}">Przypisz kod kreskowy</a></td>
+
+    </tr>
+</table>
+<br>
+<br>
+<a th:href="@{/}">Powrót na strone startowa</a>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello View</title>
+</head>
+<body>
+<h1>Hello Spring Boot</h1>
+<a th:href="@{/product/find}">znajdz zwirek</a>
+<br>
+<br>
+<a th:href="@{/product/productList}">Lista zwirkow</a>
+<br>
+<br>
+<a th:href="@{/parcel/parcelList}">Lista zamówień</a>
+<br>
+<br>
+<a th:href="@{/parcel/parcelsToSpend}">Odbierz zamowienie</a>
+<br>
+<br>
+<a th:href="@{/parcel/parcelsToSpend}">Wydaj zamowienie</a>
+</body>
+</html>

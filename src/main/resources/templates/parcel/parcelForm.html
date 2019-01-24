@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parcel Form</title>
+</head>
+<body>
+
+<h1>Product Form</h1>
+
+<form th:object="${parcel}" method="post">
+    <p>Name: <input type="text" th:field="*{name}"/></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+<br>
+<a th:href="@{/}">powrot na strone startowa</a>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Volunteer Product Form</title>
+</head>
+<body>
+<h1>Tabela zamowien wolontariuszy</h1>
+
+<table border="1">
+    <tr>
+        <th>Wolontariusz</th>
+        <th>Zamowienie</th>
+    </tr>
+    <tr th:each="v: ${volunteersFromParcel}">
+        <td th:text="${v.getName()}"></td>
+
+        <td>
+
+            <p th:each="p : ${v.getVolunteerProducts()}" th:value="${p.orderedProduct.getProduct().description}"
+               th:text="${p.orderedProduct.getProduct().description}">
+            </p>
+
+        </td>
+    </tr>
+</table>
+
+<br>
+<br>
+<h1>Volunteer Product Form</h1>
+<form th:object="${volunteerProduct}" method="post">
+    Produkt: <select th:field="*{orderedProduct}">Wybierz
+    <option th:each="p : ${parcelProducts}" th:value="${p.id}" th:text="${p.getProduct().producer}">
+    </option>
+</select>
+    <br>
+    <br>
+    Wolontariusz: <select th:field="*{volunteer}">Wybierz
+    <option th:each="v : ${volunteers}" th:value="${v.id}" th:text="${v.getName()}">
+    </option>
+</select>
+    <p>Ilość: <input type="text" th:field="*{orderedQuantity}"/></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+<br>
+<a th:href="@{/}">powrot na strone startowa</a>
+
+
+</body>
+</html>

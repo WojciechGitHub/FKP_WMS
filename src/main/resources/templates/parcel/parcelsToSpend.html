@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parcel To Spend</title>
+</head>
+<body>
+
+<h1>Tabela zamówień</h1>
+
+<table border="1">
+    <tr>
+        <th>Nazwa</th>
+        <th>Odbierz zamówienie</th>
+    </tr>
+    <tr th:each="parcel: ${parcels}">
+        <td th:text="${parcel.name}"></td>
+        <td><a th:href="@{'/parcel/spend/'+${parcel.id}}">Odbierz zamówienie</a></td>
+    </tr>
+</table>
+<br>
+<br>
+<a th:href="@{/}">Powrót na strone startowa</a>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parcel List</title>
+</head>
+<body>
+
+
+<h1>Dodaj zamówienie</h1>
+<a th:href="@{/parcel/add}">Dodawanie zamówienia</a>
+<br>
+<br>
+<h1>Tabela zamówień</h1>
+
+<table border="1">
+    <tr>
+        <th>Nazwa</th>
+        <th>Produkty</th>
+        <th>Dodaj produkty</th>
+    </tr>
+    <tr th:each="parcel: ${parcels}">
+        <td th:text="${parcel.name}"></td>
+        <td>
+
+            <p th:each="b : ${parcel.getOrderedProducts()}" th:value="${b.getProduct().producer}" th:text="${b.getProduct().getDescription()}">
+            </p>
+
+        </td>
+        <td><a th:href="@{'/orderedProduct/add/'+${parcel.id}}">Przypisz produkty do zamowienia</a></td>
+    </tr>
+</table>
+<br>
+<br>
+<a th:href="@{/}">Powrót na strone startowa</a>
+
+
+</body>
+</html>

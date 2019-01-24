@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find</title>
+</head>
+<body>
+<h1>Barcode Form</h1>
+
+<form method="post">
+    <p>Kod kreskowy: <input type="text" name="code"/></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+<br>
+<a th:href="@{/}">powrot na strone startowa</a>
+</body>
+</html>

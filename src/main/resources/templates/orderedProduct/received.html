@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Received</title>
+</head>
+<body>
+<h1>Tabela zamówień</h1>
+
+<table border="1">
+    <tr>
+        <th>Nazwa</th>
+        <th>Ilosc zamowiona</th>
+        <th>Ilosc przyjeta</th>
+        <th>Ilosc wydana</th>
+    </tr>
+    <tr th:each="p:${products}">
+        <td th:text="${p.getProduct().description}"></td>
+        <td th:text="${p.getOrderedQuantity()}"></td>
+        <td th:text="${p.getReceivedQuantity()}"></td>
+        <td th:text="${p.getDistendedQuantity()}"></td>
+    </tr>
+</table>
+<br>
+<br>
+<a th:href="@{'/parcel/spend/'+${parcelId}+'/findByBarcode'}">Odbierz zamówienie</a>
+<br>
+<br>
+<a th:href="@{/parcel/parcelsToSpend}">Powrót na strone startowa</a>
+</body>
+</html>
