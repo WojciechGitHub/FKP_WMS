@@ -13,10 +13,12 @@
     <tr>
         <th>Nazwa</th>
         <th>Odbierz zamówienie</th>
+        <th>Wydaj zamówienie</th>
     </tr>
     <tr th:each="parcel: ${parcels}">
         <td th:text="${parcel.name}"></td>
-        <td><a th:href="@{'/parcel/spend/'+${parcel.id}}">Odbierz zamówienie</a></td>
+        <td><a th:href="@{'/parcel/receive/'+${parcel.id}}">Odbierz zamówienie</a></td>
+        <td><a th:href="@{'/parcel/spend/'+${parcel.id}}">Wydaj zamówienie</a></td>
     </tr>
 </table>
 <br>

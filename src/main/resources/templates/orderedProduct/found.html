@@ -7,13 +7,14 @@
 </head>
 <body>
 
-<p th:text="${foundedProduct.producer}"></p>
-<p th:text="${foundedProduct.description}"></p>
+<p th:text="${orderedProduct.getProduct().getProducer()}"></p>
+<p th:text="${orderedProduct.getProduct().getDescription()}"></p>
 <br>
-<form th:action="@{'get/quantity'}" method="post">
+<form th:action="@{'addQuantity/'+${orderedProduct.id}}" method="post">
     <p>Ilość: <input type="text" name="quantityToAdd"/></p>
     <p><input type="submit" value="Submit"/></p>
 </form>
 
 </body>
 </html>
+

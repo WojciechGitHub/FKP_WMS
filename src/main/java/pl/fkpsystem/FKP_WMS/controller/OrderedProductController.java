@@ -50,7 +50,7 @@ public class OrderedProductController {
         }
 
         Parcel parcel = parcelRepository.getOne(parcelId);
-        for (OrderedProduct o : parcel.getOrderedProducts()) {
+        for (OrderedProduct o : parcel.getOrderedProducts()) {      //ogarnac bo cos srednio dziala jak mam dodany kod kreskowy od poczatku-fetch?
             if (o.getProduct() == orderedProduct.getProduct()) {
                 orderedProduct = o;
             }
@@ -59,7 +59,7 @@ public class OrderedProductController {
         orderedProduct.setParcel(parcel);
         orderedProductRepository.save(orderedProduct);
         model.addAttribute("parcelProducts", parcel.getOrderedProducts());
-        return "orderedProduct/orderedProductForm";
+        return "redirect:/orderedProduct/add/{parcelId}";
     }
 
     //tutaj dodam przypisywanie produktow do wolo
@@ -87,6 +87,16 @@ public class OrderedProductController {
         if (bindingResult.hasErrors()) {
             return "volunteerProduct/volunteerProductForm";
         }
+
+        long volunteerId=volunteerProduct.getVolunteer().getId();
+        long orderedProductID=volunteerProduct.getOrderedProduct().getId();
+
+        VolunteerProduct volunteerProductQuested=volunteerProductRepository.findVolunteerProductByVolunteerIdAndParcelIdAndOrderedProductId(volunteerId,parcelId,orderedProductID);
+
+        if(volunteerProductQuested!=null){
+            volunteerProductRepository.delete(volunteerProductQuested);
+        }
+
         volunteerProduct.setParcel(parcelRepository.getOne(parcelId));
         volunteerProductRepository.save(volunteerProduct);
 
@@ -96,7 +106,7 @@ public class OrderedProductController {
 
         Parcel parcel = parcelRepository.getOne(parcelId);
 
-        if (parcel.getOrderedProducts().size() != 0) {
+        if (parcel.getOrderedProducts().size() != 0) {                      //swiete-wrzuca ilosc produktu w zamowieniu
             for (OrderedProduct o : parcel.getOrderedProducts()) {
                 int quantity = 0;
                 for (VolunteerProduct v : o.getVolunteerProducts()) {
@@ -108,7 +118,7 @@ public class OrderedProductController {
 
         parcelRepository.save(parcel);
 
-        return "redirect:/";
+        return "redirect:/orderedProduct/add/{parcelId}/volunteerProducts";
     }
 
 

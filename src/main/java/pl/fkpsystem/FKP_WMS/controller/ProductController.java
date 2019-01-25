@@ -11,11 +11,13 @@ import pl.fkpsystem.FKP_WMS.repository.BarcodeRepository;
 import pl.fkpsystem.FKP_WMS.repository.ProductRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequestMapping("product")
+@SessionAttributes({"foundedProduct"})
 public class ProductController {
 
     @Autowired
@@ -82,21 +84,37 @@ public class ProductController {
     }
 
 
-    @GetMapping("/find")
+    @RequestMapping("/reserve")
+    public String reserve() {
+        return "product/reserve";
+    }
+
+    @GetMapping("/reserve/get")
     public String findProduct() {
         return "product/find";
     }
 
-    @PostMapping("/find")
-    private String saveUpdatedProduct(HttpServletRequest request, Model model) {
+    @PostMapping("/reserve/get")
+    private String foundedproduct(HttpServletRequest request, Model model) {
         String code = request.getParameter("code");
         if (barcodeRepository.findByCode(code) != null) {
-            Product product = productRepository.findProductByBarcode(code); //poprawic do uwagi w metodzie get
-            model.addAttribute("product", product);
+            Product foundedProduct = productRepository.findProductByBarcode(code);
+            model.addAttribute("foundedProduct", foundedProduct);
             return "product/found";
         }
 
         return "redirect:/product/find";
     }
+
+    @PostMapping("/reserve/get/quantity")
+    private String savePositivQuantity(HttpSession session,HttpServletRequest request, Model model) {
+        Product product=(Product) session.getAttribute("foundedProduct");
+        int quantity=Integer.parseInt(request.getParameter("quantityToAdd"));
+        int q=product.getReserveAmount()+quantity;
+        product.setReserveAmount(q);
+        productRepository.save(product);
+        return "redirect:/product/reserve";
+    }
+
 
 }

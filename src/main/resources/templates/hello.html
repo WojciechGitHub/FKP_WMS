@@ -7,18 +7,20 @@
 </head>
 <body>
 <h1>Hello Spring Boot</h1>
-<a th:href="@{/product/find}">znajdz zwirek</a>
+<a th:href="@{/product/productList}">Zarządzaj produktami</a>
 <br>
 <br>
-<a th:href="@{/product/productList}">Lista zwirkow</a>
+<a th:href="@{/parcel/parcelList}">Zarządzaj zamówieniami</a>
 <br>
 <br>
-<a th:href="@{/parcel/parcelList}">Lista zamówień</a>
+<a th:href="@{/parcel/parcelsToSpend}">Odbierz/wydaj zamowienie</a>
 <br>
 <br>
-<a th:href="@{/parcel/parcelsToSpend}">Odbierz zamowienie</a>
+<a th:href="@{/product/reserve}">Dodaj/wydaj produkt (rezerwa)</a>
 <br>
 <br>
-<a th:href="@{/parcel/parcelsToSpend}">Wydaj zamowienie</a>
+<br>
+<br>
+<a th:href="@{/}">Tabela produktów z opcja rezerwacji</a>
 </body>
 </html>
