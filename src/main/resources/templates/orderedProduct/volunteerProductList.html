@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Volunteer Products</title>
+</head>
+<body>
+
+<h1 th:text="'Zamwoienie '+${volunteer.getName()}"></h1>
+<br>
+<br>
+<table border="1">
+    <tr>
+        <th>Produkt</th>
+        <th>Ilość zamówiona</th>
+        <th>Ilość wydana</th>
+        <th>Wydaj</th>
+    </tr>
+    <tr th:each="volunteerProduct: ${volunteerProductList}">
+        <td th:text="${volunteerProduct.getOrderedProduct().getProduct().producer}+' '+${volunteerProduct.getOrderedProduct().getProduct().description}"></td>
+        <td th:text="${volunteerProduct.getOrderedQuantity()}"></td>
+        <td th:text="${volunteerProduct.getDistendedQuantity()}"></td>
+        <td><a th:href="@{'/parcel/spend/'+${parcelId}+'/volunteer/'+${volunteerId}+'/product/'+${volunteerProduct.id}}">Wydaj</a></td>
+    </tr>
+</table>
+
+
+<br>
+<br>
+<a th:href="@{'/parcel/spend/'+${parcelId}}">powrot</a>
+<br>
+<br>
+<a th:href="@{/}">powrot na strone startowa</a></body>
+
+
+</body>
+</html>
+

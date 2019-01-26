@@ -90,31 +90,57 @@ public class ProductController {
     }
 
     @GetMapping("/reserve/get")
-    public String findProduct() {
-        return "product/find";
+    public String findProductToAdd() {
+        return "product/findAdd";
     }
 
     @PostMapping("/reserve/get")
-    private String foundedproduct(HttpServletRequest request, Model model) {
+    private String foundedProductToAdd(HttpServletRequest request, Model model) {
         String code = request.getParameter("code");
         if (barcodeRepository.findByCode(code) != null) {
             Product foundedProduct = productRepository.findProductByBarcode(code);
             model.addAttribute("foundedProduct", foundedProduct);
-            return "product/found";
+            return "product/foundAdd";
         }
 
-        return "redirect:/product/find";
+        return "redirect:/product/findAdd";
     }
 
     @PostMapping("/reserve/get/quantity")
-    private String savePositivQuantity(HttpSession session,HttpServletRequest request, Model model) {
-        Product product=(Product) session.getAttribute("foundedProduct");
-        int quantity=Integer.parseInt(request.getParameter("quantityToAdd"));
-        int q=product.getReserveAmount()+quantity;
+    private String savePositivQuantity(HttpSession session, HttpServletRequest request, Model model) {
+        Product product = (Product) session.getAttribute("foundedProduct");
+        int quantity = Integer.parseInt(request.getParameter("quantityToAdd"));
+        int q = product.getReserveAmount() + quantity;
         product.setReserveAmount(q);
         productRepository.save(product);
         return "redirect:/product/reserve";
     }
 
+
+    @GetMapping("/reserve/spend")
+    public String findProductToSpend() {
+        return "product/findSpend";
+    }
+
+    @PostMapping("/reserve/spend")
+    private String foundedProductToSpend(HttpServletRequest request, Model model) {
+        String code = request.getParameter("code");
+        if (barcodeRepository.findByCode(code) != null) {
+            Product foundedProduct = productRepository.findProductByBarcode(code);
+            model.addAttribute("foundedProduct", foundedProduct);
+            return "product/foundSpend";
+        }
+        return "redirect:/product/findSpend";
+    }
+
+    @PostMapping("/reserve/spend/quantity")
+    private String saveNegativQuantityt(HttpSession session, HttpServletRequest request, Model model) {
+        Product product = (Product) session.getAttribute("foundedProduct");
+        int quantity = Integer.parseInt(request.getParameter("quantityToSpend"));
+        int q = product.getReserveAmount() - quantity;
+        product.setReserveAmount(q);
+        productRepository.save(product);
+        return "redirect:/product/reserve";
+    }
 
 }

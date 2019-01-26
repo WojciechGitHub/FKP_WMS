@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Volunteer List</title>
+</head>
+<body>
+<h1>Lista wolontariuszy przypisanych do zamówienia</h1>
+<br>
+<br>
+
+
+<table border="1">
+    <tr>
+        <th>Wolontariusz</th>
+        <th>Wydaj zamówienie</th>
+    </tr>
+    <tr th:each="volunteer: ${volunteerList}">
+        <td th:text="${volunteer.getName()}"></td>
+        <td><a th:href="@{'/parcel/spend/'+${parcelId}+'/volunteer/'+${volunteer.id}}">Wydaj</a></td>
+    </tr>
+</table>
+
+
+<br>
+<br>
+<a th:href="@{/parcel/parcelsToSpend}">powrot</a>
+<br>
+<br>
+<a th:href="@{/}">powrot na strone startowa</a></body>
+</html>

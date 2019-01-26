@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Found</title>
+</head>
+<body>
+
+<p th:text="${foundedProduct.producer}"></p>
+<p th:text="${foundedProduct.description}"></p>
+<br>
+<form th:action="@{'spend/quantity'}" method="post">
+    <p>Ilość: <input type="text" name="quantityToSpend"/></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+
+</body>
+</html>
