@@ -1,4 +1,4 @@
-package pl.fkpsystem.FKP_WMS.model;
+package pl.fkpsystem.model;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package pl.fkpsystem.FKP_WMS;
+package pl.fkpsystem;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

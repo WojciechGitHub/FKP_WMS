@@ -1,11 +1,9 @@
-package pl.fkpsystem.FKP_WMS.converter;
+package pl.fkpsystem.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
-import pl.fkpsystem.FKP_WMS.model.Product;
-import pl.fkpsystem.FKP_WMS.model.Volunteer;
-import pl.fkpsystem.FKP_WMS.repository.ProductRepository;
-import pl.fkpsystem.FKP_WMS.repository.VolunteerRepository;
+import pl.fkpsystem.model.Volunteer;
+import pl.fkpsystem.repository.VolunteerRepository;
 
 public class VolunteerConverter implements Converter<String, Volunteer> {
 

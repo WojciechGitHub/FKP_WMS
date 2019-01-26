@@ -1,15 +1,20 @@
-package pl.fkpsystem.FKP_WMS.controller;
+package pl.fkpsystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.fkpsystem.FKP_WMS.model.*;
-import pl.fkpsystem.FKP_WMS.repository.*;
+import pl.fkpsystem.model.*;
+import pl.fkpsystem.repository.*;
+import pl.fkpsystem.model.*;
+import pl.fkpsystem.repository.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping("orderedProduct")
@@ -59,7 +64,7 @@ public class OrderedProductController {
         orderedProduct.setParcel(parcel);
         orderedProductRepository.save(orderedProduct);
         model.addAttribute("parcelProducts", parcel.getOrderedProducts());
-        return "redirect:/orderedProduct/add/{parcelId}";
+        return "redirect:/orderedProduct/add/" + parcelId;
     }
 
     //tutaj dodam przypisywanie produktow do wolo
@@ -75,7 +80,7 @@ public class OrderedProductController {
         List<Volunteer> volunteers = volunteerRepository.findAll();
         model.addAttribute("volunteers", volunteers);
 
-        List<Volunteer> volunteersFromParcel = volunteerRepository.findVolunteersByParcel(parcelId);
+        Set<Volunteer> volunteersFromParcel = volunteerRepository.findVolunteersByParcel(parcelId);
         model.addAttribute("volunteersFromParcel", volunteersFromParcel);
 
         return "volunteerProduct/volunteerProductForm";
@@ -88,24 +93,22 @@ public class OrderedProductController {
             return "volunteerProduct/volunteerProductForm";
         }
 
-        long volunteerId=volunteerProduct.getVolunteer().getId();
-        long orderedProductID=volunteerProduct.getOrderedProduct().getId();
-
-        VolunteerProduct volunteerProductQuested=volunteerProductRepository.findVolunteerProductByVolunteerIdAndParcelIdAndOrderedProductId(volunteerId,parcelId,orderedProductID);
-
-        if(volunteerProductQuested!=null){
-            volunteerProductRepository.delete(volunteerProductQuested);
+        long volunteerId = volunteerProduct.getVolunteer().getId();
+        long orderedProductId = volunteerProduct.getOrderedProduct().getId();
+        VolunteerProduct volunteerProductQuested = volunteerProductRepository.findVolunteerProductByVolunteerIdAndParcelIdAndOrderedProductId(volunteerId, parcelId, orderedProductId);
+        if (volunteerProductQuested == null) {
+            volunteerProduct.setParcel(parcelRepository.getOne(parcelId));
+            volunteerProductRepository.save(volunteerProduct);
+        } else {
+            volunteerProductQuested.setOrderedQuantity(volunteerProduct.getOrderedQuantity());
+            volunteerProductRepository.save(volunteerProductQuested);
         }
 
-        volunteerProduct.setParcel(parcelRepository.getOne(parcelId));
-        volunteerProductRepository.save(volunteerProduct);
-
-        List<Volunteer> volunteersFromParcel = volunteerRepository.findVolunteersByParcel(parcelId);
-
+        Map<Volunteer, List<VolunteerProduct>> map = new HashMap<>();
+        Set<Volunteer> volunteersFromParcel = volunteerRepository.findVolunteersByParcel(parcelId);
         model.addAttribute("volunteersFromParcel", volunteersFromParcel);
 
         Parcel parcel = parcelRepository.getOne(parcelId);
-
         if (parcel.getOrderedProducts().size() != 0) {                      //swiete-wrzuca ilosc produktu w zamowieniu
             for (OrderedProduct o : parcel.getOrderedProducts()) {
                 int quantity = 0;
@@ -115,10 +118,9 @@ public class OrderedProductController {
                 o.setOrderedQuantity(quantity);
             }
         }
-
         parcelRepository.save(parcel);
 
-        return "redirect:/orderedProduct/add/{parcelId}/volunteerProducts";
+        return "redirect:/orderedProduct/add/" + parcelId + "/volunteerProducts";
     }
 
 

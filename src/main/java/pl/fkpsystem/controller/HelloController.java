@@ -1,4 +1,4 @@
-package pl.fkpsystem.FKP_WMS.controller;
+package pl.fkpsystem.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

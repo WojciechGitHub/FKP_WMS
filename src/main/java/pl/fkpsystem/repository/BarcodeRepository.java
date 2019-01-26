@@ -1,7 +1,7 @@
-package pl.fkpsystem.FKP_WMS.repository;
+package pl.fkpsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.fkpsystem.FKP_WMS.model.Barcode;
+import pl.fkpsystem.model.Barcode;
 
 public interface BarcodeRepository extends JpaRepository<Barcode, Long> {
 

@@ -1,10 +1,10 @@
-package pl.fkpsystem.FKP_WMS.converter;
+package pl.fkpsystem.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import pl.fkpsystem.FKP_WMS.model.Barcode;
-import pl.fkpsystem.FKP_WMS.repository.BarcodeRepository;
+import pl.fkpsystem.model.Barcode;
+import pl.fkpsystem.repository.BarcodeRepository;
 
 @Component
 public class BarcodeConverter implements Converter<String, Barcode> {

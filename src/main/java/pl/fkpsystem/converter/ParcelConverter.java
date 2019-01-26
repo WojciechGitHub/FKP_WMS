@@ -1,10 +1,10 @@
-package pl.fkpsystem.FKP_WMS.converter;
+package pl.fkpsystem.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import pl.fkpsystem.FKP_WMS.model.Parcel;
-import pl.fkpsystem.FKP_WMS.repository.ParcelRepository;
+import pl.fkpsystem.model.Parcel;
+import pl.fkpsystem.repository.ParcelRepository;
 
 @Component
 public class ParcelConverter implements Converter<String, Parcel> {

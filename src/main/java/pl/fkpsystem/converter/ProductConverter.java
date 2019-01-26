@@ -1,10 +1,10 @@
-package pl.fkpsystem.FKP_WMS.converter;
+package pl.fkpsystem.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import pl.fkpsystem.FKP_WMS.model.Product;
-import pl.fkpsystem.FKP_WMS.repository.ProductRepository;
+import pl.fkpsystem.model.Product;
+import pl.fkpsystem.repository.ProductRepository;
 
 @Component
 public class ProductConverter implements Converter<String, Product> {

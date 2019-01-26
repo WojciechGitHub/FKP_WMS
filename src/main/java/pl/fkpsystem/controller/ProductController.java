@@ -1,14 +1,14 @@
-package pl.fkpsystem.FKP_WMS.controller;
+package pl.fkpsystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.fkpsystem.FKP_WMS.model.Barcode;
-import pl.fkpsystem.FKP_WMS.model.Product;
-import pl.fkpsystem.FKP_WMS.repository.BarcodeRepository;
-import pl.fkpsystem.FKP_WMS.repository.ProductRepository;
+import pl.fkpsystem.model.Barcode;
+import pl.fkpsystem.model.Product;
+import pl.fkpsystem.repository.BarcodeRepository;
+import pl.fkpsystem.repository.ProductRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

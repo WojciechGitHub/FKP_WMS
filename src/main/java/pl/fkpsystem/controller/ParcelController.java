@@ -1,16 +1,19 @@
-package pl.fkpsystem.FKP_WMS.controller;
+package pl.fkpsystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.fkpsystem.FKP_WMS.model.*;
-import pl.fkpsystem.FKP_WMS.repository.*;
+import pl.fkpsystem.model.*;
+import pl.fkpsystem.repository.*;
+import pl.fkpsystem.model.*;
+import pl.fkpsystem.repository.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("parcel")
@@ -99,7 +102,7 @@ public class ParcelController {
 
     @RequestMapping("/spend/{parcelId}")
     public String volunteerList(@PathVariable long parcelId, Model model) {
-        List<Volunteer> volunteerList = volunteerRepository.findVolunteersByParcel(parcelId);
+        Set<Volunteer> volunteerList = volunteerRepository.findVolunteersByParcel(parcelId);
         model.addAttribute("volunteerList", volunteerList);
         return "orderedProduct/volunteerList";
     }
