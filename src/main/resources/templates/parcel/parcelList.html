@@ -17,18 +17,13 @@
 <table border="1">
     <tr>
         <th>Nazwa</th>
-        <th>Produkty</th>
         <th>Dodaj produkty</th>
+        <th>Usuń zamówienie</th>
     </tr>
     <tr th:each="parcel: ${parcels}">
         <td th:text="${parcel.name}"></td>
-        <td>
-
-            <p th:each="b : ${parcel.getOrderedProducts()}" th:value="${b.getProduct().producer}" th:text="${b.getProduct().getDescription()}">
-            </p>
-
-        </td>
         <td><a th:href="@{'/orderedProduct/add/'+${parcel.id}}">Przypisz produkty do zamowienia</a></td>
+        <td><a th:href="@{'/parcel/remove/'+${parcel.id}}">Usuń</a></td>
     </tr>
 </table>
 <br>

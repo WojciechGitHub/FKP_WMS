@@ -37,6 +37,10 @@ public class ProductController {
         return barcodeRepository.findAll();
     }
 
+    /*@ModelAttribute("productList")
+    public List<Product> productList() {
+        return productRepository.findAll();
+    }*/
 
     @GetMapping("/add")
     public String addKittyLitter(Model model) {
@@ -102,9 +106,24 @@ public class ProductController {
             model.addAttribute("foundedProduct", foundedProduct);
             return "product/foundAdd";
         }
-
         return "redirect:/product/findAdd";
     }
+
+
+    @GetMapping("/reserve/addByName")
+    public String findProductByNameToAdd(Model model) {
+        model.addAttribute("productList",productRepository.findAll());
+        return "product/findByName";
+    }
+
+    @PostMapping("/reserve/addByName")
+    private String foundedProductByNameToAdd(HttpServletRequest request, Model model) {
+        long id = Long.parseLong(request.getParameter("productId"));
+        Product foundedProduct = productRepository.getOne(id);
+        model.addAttribute("foundedProduct", foundedProduct);
+        return "product/foundAdd";
+    }
+
 
     @PostMapping("/reserve/get/quantity")
     private String savePositivQuantity(HttpSession session, HttpServletRequest request, Model model) {
@@ -132,7 +151,21 @@ public class ProductController {
         }
         return "redirect:/product/findSpend";
     }
+//
+    @GetMapping("/reserve/spendByName")
+    public String findProductByNameToSpend(Model model) {
+        model.addAttribute("productList",productRepository.findAll());
+        return "product/findByNameToSpend";
+    }
 
+    @PostMapping("/reserve/spendByName")
+    private String foundedProductByNameToSpend(HttpServletRequest request, Model model) {
+        long id = Long.parseLong(request.getParameter("productId"));
+        Product foundedProduct = productRepository.getOne(id);
+        model.addAttribute("foundedProduct", foundedProduct);
+        return "product/foundSpend";
+    }
+ //
     @PostMapping("/reserve/spend/quantity")
     private String saveNegativQuantityt(HttpSession session, HttpServletRequest request, Model model) {
         Product product = (Product) session.getAttribute("foundedProduct");

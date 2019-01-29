@@ -59,6 +59,14 @@ public class ParcelController {
         return "redirect:/parcel/parcelList";
     }
 
+
+    @GetMapping("/remove/{parcelId}")
+    private String deleteParcel(@PathVariable long parcelId) {
+        Parcel parcel = parcelRepository.getOne(parcelId);
+        parcelRepository.delete(parcel);
+        return "redirect:/parcel/parcelList";
+    }
+
     @RequestMapping("/parcelsToSpend")
     public String parcels() {
         return "parcel/parcelsToSpend";
@@ -86,7 +94,25 @@ public class ParcelController {
         }
         return "orderedProduct/find";
     }
+//
 
+    @GetMapping("/receive/{parcelId}/findByName")
+    public String findProductByName(Model model, @PathVariable long parcelId) {
+        model.addAttribute("orderedProductList", orderedProductRepository.findAllByParcelId(parcelId));
+        return "orderedProduct/findByName";
+    }
+
+    @PostMapping("/receive/{parcelId}/findByName")
+    public String fondedProductByName(HttpServletRequest request, @PathVariable long parcelId, Model model) {
+
+        long id = Long.parseLong(request.getParameter("productId"));
+        OrderedProduct orderedProduct = orderedProductRepository.getOne(id);
+        model.addAttribute("orderedProduct", orderedProduct);
+        return "orderedProduct/found";
+
+    }
+
+    //
     @PostMapping("/receive/{parcelId}/addQuantity/{productId}")
     public String addQuantity(HttpServletRequest request, @PathVariable long productId) {
         int quantity = Integer.parseInt(request.getParameter("quantityToAdd"));
@@ -123,19 +149,19 @@ public class ParcelController {
     }
 
     @PostMapping("/spend/{parcelId}/volunteer/{volunteerId}/product/{volunteerProductId}")
-    public String volunteerProductSpendSaveQuantity(@PathVariable long volunteerId, @PathVariable long parcelId, @PathVariable long volunteerProductId, Model model,@RequestParam int quantityToSpend) {
+    public String volunteerProductSpendSaveQuantity(@PathVariable long volunteerId, @PathVariable long parcelId, @PathVariable long volunteerProductId, Model model, @RequestParam int quantityToSpend) {
 
-        VolunteerProduct volunteerProduct=volunteerProductRepository.getOne(volunteerProductId);
-        OrderedProduct orderedProduct=orderedProductRepository.getOne(volunteerProduct.getOrderedProduct().getId());
+        VolunteerProduct volunteerProduct = volunteerProductRepository.getOne(volunteerProductId);
+        OrderedProduct orderedProduct = orderedProductRepository.getOne(volunteerProduct.getOrderedProduct().getId());
         Product product = volunteerProduct.getOrderedProduct().getProduct();
 
-        volunteerProduct.setDistendedQuantity(volunteerProduct.getDistendedQuantity()+quantityToSpend);
-        orderedProduct.setDistendedQuantity(orderedProduct.getDistendedQuantity()+quantityToSpend);
-        product.setOrderAmount(product.getOrderAmount()-quantityToSpend);
+        volunteerProduct.setDistendedQuantity(volunteerProduct.getDistendedQuantity() + quantityToSpend);
+        orderedProduct.setDistendedQuantity(orderedProduct.getDistendedQuantity() + quantityToSpend);
+        product.setOrderAmount(product.getOrderAmount() - quantityToSpend);
         volunteerProductRepository.save(volunteerProduct);
         orderedProductRepository.save(orderedProduct);
         productRepository.save(product);
-        return "redirect:/parcel/spend/"+parcelId+"/volunteer/"+volunteerId;
+        return "redirect:/parcel/spend/" + parcelId + "/volunteer/" + volunteerId;
     }
 
 }

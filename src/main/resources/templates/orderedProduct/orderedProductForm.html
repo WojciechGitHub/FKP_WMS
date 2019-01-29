@@ -14,12 +14,15 @@
         <th>Ilosc zamowiona</th>
         <th>Ilosc odebrana</th>
         <th>Ilosc wydana</th>
+        <th>Usuń</th>
     </tr>
     <tr th:each="p: ${parcelProducts}">
-        <td th:text="${p.getProduct().description}"></td>
+        <td th:text="${p.getProduct()}"></td>
         <td th:text="${p.getOrderedQuantity()}"></td>
         <td th:text="${p.getReceivedQuantity()}"></td>
         <td th:text="${p.getDistendedQuantity()}"></td>
+        <td><a th:href="@{'/orderedProduct/add/'+${parcelId}+'/removeProduct/'+${p.id}}">Usuń</a>
+        </td>
     </tr>
 </table>
 
@@ -27,7 +30,7 @@
 <h1>Ordered Product Form</h1>
 <form th:object="${orderedProduct}" method="post">
        <select  th:field="*{product}">Wybierz
-           <option th:each="p : ${products}" th:value="${p.id}" th:text="${p.producer}">
+           <option th:each="p : ${products}" th:value="${p.id}" th:text="${p}">
            </option>
        </select>
     <p><input type="submit" value="Submit"/></p>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Product By Name</title>
+</head>
+<body>
+
+<h1>Ordered Product Form</h1>
+<form  method="post">
+    <select name="productId">Wybierz
+        <option th:each="p : ${orderedProductList}" th:value="${p.id}" th:text="${p.getProduct()}">
+        </option>
+    </select>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+
+
+<br>
+<a th:href="@{/}">powrot na strone startowa</a>
+
+</body>
+</html>

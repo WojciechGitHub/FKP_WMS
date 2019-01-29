@@ -14,5 +14,6 @@ public interface VolunteerProductRepository extends JpaRepository<VolunteerProdu
     @Query(value = "SELECT * FROM volunteer_product JOIN volunteer ON volunteer_product.volunteer_id=volunteer.id WHERE volunteer_product.parcel_id=?1 and volunteer_id=?2", nativeQuery = true)
     List<VolunteerProduct> findVolunteerProductsByParcelIdAndVolunteerId(Long parcelId, Long volunteerId);
 
+    List<VolunteerProduct> findAllByParcelId(long id);
 
 }

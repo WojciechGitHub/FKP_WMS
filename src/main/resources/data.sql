@@ -18,6 +18,9 @@ INSERT INTO barcode (code) VALUE ('14');*/
 INSERT INTO volunteer (name) VALUE ('wolo1');
 INSERT INTO volunteer (name) VALUE ('wolo2');
 INSERT INTO volunteer (name) VALUE ('wolo3');
+INSERT INTO volunteer (name) VALUE ('Adam');
+INSERT INTO volunteer (name) VALUE ('Maciej');
+INSERT INTO volunteer (name) VALUE ('Alan');
 
 INSERT INTO parcel (name) VALUE ('zam1');
 INSERT INTO parcel (name) VALUE ('zam2');

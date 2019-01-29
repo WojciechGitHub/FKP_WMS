@@ -11,10 +11,8 @@ import pl.fkpsystem.model.*;
 import pl.fkpsystem.repository.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("orderedProduct")
@@ -67,6 +65,23 @@ public class OrderedProductController {
         return "redirect:/orderedProduct/add/" + parcelId;
     }
 
+    @GetMapping("/add/{parcelId}/volunteerProducts/remove/{orderProductId}")
+    public String removeVolunteerProduct(@PathVariable long orderProductId, @PathVariable long parcelId) {
+        VolunteerProduct volunteerProduct = volunteerProductRepository.getOne(orderProductId);
+        OrderedProduct orderedProduct=orderedProductRepository.getOne(volunteerProduct.getOrderedProduct().getId());
+        orderedProduct.setOrderedQuantity(orderedProduct.getOrderedQuantity()-volunteerProduct.getOrderedQuantity());
+        orderedProductRepository.save(orderedProduct);
+        volunteerProductRepository.delete(volunteerProduct);
+        return "redirect:/orderedProduct/add/" + parcelId + "/volunteerProducts";
+    }
+
+    @GetMapping("/add/{parcelId}/removeProduct/{orderedProductId}")
+    public String removeOrderedProduct(@PathVariable long orderedProductId, @PathVariable long parcelId) {
+        OrderedProduct orderedProduct = orderedProductRepository.getOne(orderedProductId);
+        orderedProductRepository.delete(orderedProduct);
+        return "redirect:/orderedProduct/add/" + parcelId;
+    }
+
     //tutaj dodam przypisywanie produktow do wolo
     //kwestia czy tej akcji nie umiescic w innym kontrolerze->VolunteerProductController?
 
@@ -82,6 +97,14 @@ public class OrderedProductController {
 
         Set<Volunteer> volunteersFromParcel = volunteerRepository.findVolunteersByParcel(parcelId);
         model.addAttribute("volunteersFromParcel", volunteersFromParcel);
+
+        List<VolunteerProduct> volunteerProductList = volunteerProductRepository.findAllByParcelId(parcelId);
+        Map<Volunteer, List<VolunteerProduct>> unsortedMap = volunteerProductList.stream().collect(Collectors.groupingBy(VolunteerProduct::getVolunteer));
+        Map<Volunteer, List<VolunteerProduct>> volunteerListMap = new LinkedHashMap<>();
+        unsortedMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey((v1, v2) -> v1.getName().compareToIgnoreCase(v2.getName())))
+                .forEach(c -> volunteerListMap.put(c.getKey(), c.getValue()));
+        model.addAttribute("volunteerListMap", volunteerListMap);
 
         return "volunteerProduct/volunteerProductForm";
     }
@@ -104,9 +127,14 @@ public class OrderedProductController {
             volunteerProductRepository.save(volunteerProductQuested);
         }
 
-        Map<Volunteer, List<VolunteerProduct>> map = new HashMap<>();
-        Set<Volunteer> volunteersFromParcel = volunteerRepository.findVolunteersByParcel(parcelId);
-        model.addAttribute("volunteersFromParcel", volunteersFromParcel);
+
+        List<VolunteerProduct> volunteerProductList = volunteerProductRepository.findAllByParcelId(parcelId);
+        Map<Volunteer, List<VolunteerProduct>> unsortedMap = volunteerProductList.stream().collect(Collectors.groupingBy(VolunteerProduct::getVolunteer));
+        Map<Volunteer, List<VolunteerProduct>> volunteerListMap = new LinkedHashMap<>();
+        unsortedMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey((v1, v2) -> v1.getName().compareToIgnoreCase(v2.getName())))
+                .forEach(c -> volunteerListMap.put(c.getKey(), c.getValue()));
+        model.addAttribute("volunteerListMap", volunteerListMap);
 
         Parcel parcel = parcelRepository.getOne(parcelId);
         if (parcel.getOrderedProducts().size() != 0) {                      //swiete-wrzuca ilosc produktu w zamowieniu

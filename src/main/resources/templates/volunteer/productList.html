@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitty Litter List</title>
+</head>
+<body>
+<h1>Tabela produktów</h1>
+
+<table border="1">
+    <tr>
+        <th>Producent</th>
+        <th>Nazwa</th>
+        <th colspan="2">Waga</th>
+        <th>Rodzaj</th>
+        <th>zamówienie</th>
+        <th>rezerwa</th>
+        <th>Uwagi</th>
+        <th>Rezerwacja przez wolo</th>
+
+    </tr>
+    <tr th:each="product: ${productList}">
+        <td th:text="${product.producer}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.grammage}"></td>
+        <td th:text="${product.unitOfGrammage}"></td>
+        <td th:text="${product.sort}"></td>
+        <td th:text="${product.orderAmount}"></td>
+        <td th:text="${product.reserveAmount}"></td>
+        <td th:text="${product.remarks}"></td>
+        <td th:text="${product.reservationByVolunteer}"></td>
+        <!--  <td><a th:href="@{'/product/update/'+${product.id}}">Edit</a></td>-->
+
+
+    </tr>
+</table>
+<br>
+<br>
+<a th:href="@{/}">Powrót na strone startowa</a>
+</body>
+</html>
