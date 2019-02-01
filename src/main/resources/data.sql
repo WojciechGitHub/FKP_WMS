@@ -15,13 +15,15 @@ INSERT INTO barcode (code) VALUE ('12');
 INSERT INTO barcode (code) VALUE ('13');
 INSERT INTO barcode (code) VALUE ('14');*/
 
-INSERT INTO volunteer (name) VALUE ('wolo1');
+/*INSERT INTO volunteer (name) VALUE ('wolo1');
 INSERT INTO volunteer (name) VALUE ('wolo2');
 INSERT INTO volunteer (name) VALUE ('wolo3');
 INSERT INTO volunteer (name) VALUE ('Adam');
 INSERT INTO volunteer (name) VALUE ('Maciej');
-INSERT INTO volunteer (name) VALUE ('Alan');
+INSERT INTO volunteer (name) VALUE ('Alan');*/
 
 INSERT INTO parcel (name) VALUE ('zam1');
 INSERT INTO parcel (name) VALUE ('zam2');
 INSERT INTO parcel (name) VALUE ('zam3');
+
+INSERT INTO role(name) VALUE('ROLE_REGISTERED')
