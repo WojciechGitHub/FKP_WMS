@@ -11,7 +11,11 @@
 <form th:action="@{/registration}" th:object="${volunteer}" method="post">
     Username: <input type="text" th:field="*{name}"/>
     <br>
+    <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
+    <br>
     Password: <input type="password" th:field="*{password}"/>
+    <br>
+    <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Złe hasło</label>
     <br>
     <button type="submit">Register User</button>
 </form>

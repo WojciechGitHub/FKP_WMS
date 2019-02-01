@@ -1,8 +1,12 @@
 package pl.fkpsystem.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,8 +20,11 @@ public class Volunteer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank
     private String name;
 
+    @NotBlank
+    @Size(min = 5)
     private String password;
 
     private int enabled;
