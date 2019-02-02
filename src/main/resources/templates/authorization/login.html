@@ -7,8 +7,8 @@
 <body>
 <h1>Custom login page</h1>
 <form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><label> Użytkowik: <input type="text" name="username"/> </label></div>
+    <div><label> Hasło: <input type="password" name="password"/> </label></div>
     <div th:if="${param.error}">Nie poprawne dane logowania</div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
