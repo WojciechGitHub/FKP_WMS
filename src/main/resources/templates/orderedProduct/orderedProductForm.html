@@ -29,7 +29,8 @@
 
 <h1>Ordered Product Form</h1>
 <form th:object="${orderedProduct}" method="post">
-       <select  th:field="*{product}">Wybierz
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <select  th:field="*{product}">Wybierz
            <option th:each="p : ${products}" th:value="${p.id}" th:text="${p}">
            </option>
        </select>

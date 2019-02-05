@@ -12,6 +12,9 @@ import pl.fkpsystem.repository.ProductRepository;
 @RequestMapping("volunteer")
 @Secured({"ROLE_USER","ROLE_ADMIN"})
 
+//zaorac mozna i jeszcze raz to przemyslec
+
+
 public class VolunteerController {
 
     @Autowired

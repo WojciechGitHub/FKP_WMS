@@ -11,6 +11,7 @@
 <p th:text="${product.description}"></p>
 <br>
 <form  method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <p>Ilość: <input type="text" name="quantityToSpend"/></p>
     <p><input type="submit" value="Submit"/></p>
 </form>

@@ -10,6 +10,7 @@
 <h1>Product Form</h1>
 
 <form th:object="${parcel}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <p>Name: <input type="text" th:field="*{name}"/></p>
     <p><input type="submit" value="Submit"/></p>
 </form>

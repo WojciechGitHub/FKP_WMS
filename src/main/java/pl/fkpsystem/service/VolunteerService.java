@@ -36,22 +36,5 @@ public class VolunteerService {
         volunteerRepository.save(volunteer);
     }
 
-    /*
-        public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setEnabled(1);
-        Role userRole = roleRepository.findByName("REGISTERED");
-        if(userRole==null){
-           userRole=new Role();
-            userRole.setName("REGISTERED");
-            roleRepository.save(userRole);
-
-        }
-        user.getRoles().add(userRole);
-        //user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        userRepository.save(user);
-    }
-
-    */
 
 }

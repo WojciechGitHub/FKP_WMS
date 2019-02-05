@@ -53,7 +53,7 @@ public class ParcelController {
     }
 
     @PostMapping("/add")
-    private String saveNewParcel(@Valid Parcel parcel, BindingResult bindingResult) {
+    public String saveNewParcel(@Valid Parcel parcel, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "parcel/parcelForm";
         }
@@ -61,9 +61,14 @@ public class ParcelController {
         return "redirect:/parcel/parcelList";
     }
 
+    @GetMapping("/deleteConfirmation/{parcelId}")
+    public String deleteConfirmation(@PathVariable long parcelId, Model model) {
+        model.addAttribute("parcelId",parcelId);
+        return "parcel/deleteConfirmation";
+    }
 
-    @GetMapping("/remove/{parcelId}")
-    private String deleteParcel(@PathVariable long parcelId) {
+    @GetMapping("/deleteConfirmation/{parcelId}/remove")
+    public String deleteParcel(@PathVariable long parcelId) {
         Parcel parcel = parcelRepository.getOne(parcelId);
         parcelRepository.delete(parcel);
         return "redirect:/parcel/parcelList";

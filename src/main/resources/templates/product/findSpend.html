@@ -9,6 +9,8 @@
 <h1>Barcode Form</h1>
 
 <form method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
     <p>Kod kreskowy: <input type="text" name="code"/></p>
     <p><input type="submit" value="Submit"/></p>
 </form>

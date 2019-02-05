@@ -28,9 +28,11 @@ public class ProductController {
     BarcodeRepository barcodeRepository;
 
     @RequestMapping("/productList")
-    public String kittyLitterList(Model model) {
-        List<Product> products = productRepository.findAll();
-        model.addAttribute("products", products);
+    public String Products(Model model) {
+        List<Product> kittyLitters = productRepository.findAllByType("kittyLitter");
+        model.addAttribute("kittyLitters", kittyLitters);
+        List<Product> feeds = productRepository.findAllByType("feed");
+        model.addAttribute("feeds", feeds);
         return "product/productList";
     }
 
@@ -39,43 +41,81 @@ public class ProductController {
         return barcodeRepository.findAll();
     }
 
-    /*@ModelAttribute("productList")
-    public List<Product> productList() {
-        return productRepository.findAll();
-    }*/
-
-    @GetMapping("/add")
+    @GetMapping("/addKittyLitter")
     public String addKittyLitter(Model model) {
         model.addAttribute("product", new Product());
-        return "product/productForm";
+        return "product/kittyLitterForm";
     }
 
-    @PostMapping("/add")
-    private String saveNewProduct(@Valid Product product, BindingResult bindingResult) {
+    @PostMapping("/addKittyLitter")
+    public String saveNewProduct(@Valid Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "product/productForm";
+            return "product/kittyLitterForm";
         }
-        Barcode barcode = product.getBarcodes().get(0);
-        barcode.setProduct(product);
-
+        if (product.getBarcodes().size() != 0) {
+            Barcode barcode = product.getBarcodes().get(0);
+            barcode.setProduct(product);
+        }
+        product.setType("kittyLitter"); // postarac sie ustawic jako hidden w form
         productRepository.save(product);
         return "redirect:/product/productList";
     }
 
-    @GetMapping("/update/{id}")
+    ////
+    @GetMapping("/addFeed")
+    public String addFeed(Model model) {
+        model.addAttribute("product", new Product());
+        return "product/feedForm";
+    }
+
+    @PostMapping("/addFeed")
+    public String saveNewFeed(@Valid Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "product/feedForm";
+        }
+        if (product.getBarcodes().size() != 0) {
+            Barcode barcode = product.getBarcodes().get(0);
+            barcode.setProduct(product);
+        }
+        product.setType("feed"); // postarac sie ustawic jako hidden w form
+        productRepository.save(product);
+        return "redirect:/product/productList";
+    }
+    ////
+
+    @GetMapping("/updateKittyLitter/{id}")
     public String updateProduct(@PathVariable long id, Model model) {
         model.addAttribute("product", productRepository.findById(id));
-        return "product/productForm";
+        return "product/kittyLitterForm";
     }
 
-    @PostMapping("/update/{id}")
-    private String saveUpdatedKittyLitter(@Valid Product product, @PathVariable long id, BindingResult bindingResult) {
+    @PostMapping("/updateKittyLitter/{id}")
+    public String saveUpdatedKittyLitter(@Valid Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "product/productForm";
+            return "product/kittyLitterForm";
         }
+        product.setType("kittyLitter");
         productRepository.save(product);
         return "redirect:/product/productList";
     }
+
+    /////
+    @GetMapping("/updateFeed/{id}")
+    public String updateFeed(@PathVariable long id, Model model) {
+        model.addAttribute("product", productRepository.findById(id));
+        return "product/feedForm";
+    }
+
+    @PostMapping("/updateFeed/{id}")
+    public String saveUpdatedFeed(@Valid Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "product/feedForm";
+        }
+        product.setType("feed");
+        productRepository.save(product);
+        return "redirect:/product/productList";
+    }
+    /////
 
     @GetMapping("/delete/{id}")
     public String deleteKittyLitter(@PathVariable long id, Model model) {
@@ -101,7 +141,7 @@ public class ProductController {
     }
 
     @PostMapping("/reserve/get")
-    private String foundedProductToAdd(HttpServletRequest request, Model model) {
+    public String foundedProductToAdd(HttpServletRequest request, Model model) {
         String code = request.getParameter("code");
         if (barcodeRepository.findByCode(code) != null) {
             Product foundedProduct = productRepository.findProductByBarcode(code);
@@ -114,12 +154,12 @@ public class ProductController {
 
     @GetMapping("/reserve/addByName")
     public String findProductByNameToAdd(Model model) {
-        model.addAttribute("productList",productRepository.findAll());
+        model.addAttribute("productList", productRepository.findAll());
         return "product/findByName";
     }
 
     @PostMapping("/reserve/addByName")
-    private String foundedProductByNameToAdd(HttpServletRequest request, Model model) {
+    public String foundedProductByNameToAdd(HttpServletRequest request, Model model) {
         long id = Long.parseLong(request.getParameter("productId"));
         Product foundedProduct = productRepository.getOne(id);
         model.addAttribute("foundedProduct", foundedProduct);
@@ -128,7 +168,7 @@ public class ProductController {
 
 
     @PostMapping("/reserve/get/quantity")
-    private String savePositivQuantity(HttpSession session, HttpServletRequest request, Model model) {
+    public String savePositivQuantity(HttpSession session, HttpServletRequest request, Model model) {
         Product product = (Product) session.getAttribute("foundedProduct");
         int quantity = Integer.parseInt(request.getParameter("quantityToAdd"));
         int q = product.getReserveAmount() + quantity;
@@ -144,7 +184,7 @@ public class ProductController {
     }
 
     @PostMapping("/reserve/spend")
-    private String foundedProductToSpend(HttpServletRequest request, Model model) {
+    public String foundedProductToSpend(HttpServletRequest request, Model model) {
         String code = request.getParameter("code");
         if (barcodeRepository.findByCode(code) != null) {
             Product foundedProduct = productRepository.findProductByBarcode(code);
@@ -153,23 +193,25 @@ public class ProductController {
         }
         return "redirect:/product/findSpend";
     }
-//
+
+    //
     @GetMapping("/reserve/spendByName")
     public String findProductByNameToSpend(Model model) {
-        model.addAttribute("productList",productRepository.findAll());
+        model.addAttribute("productList", productRepository.findAll());
         return "product/findByNameToSpend";
     }
 
     @PostMapping("/reserve/spendByName")
-    private String foundedProductByNameToSpend(HttpServletRequest request, Model model) {
+    public String foundedProductByNameToSpend(HttpServletRequest request, Model model) {
         long id = Long.parseLong(request.getParameter("productId"));
         Product foundedProduct = productRepository.getOne(id);
         model.addAttribute("foundedProduct", foundedProduct);
         return "product/foundSpend";
     }
- //
+
+    //
     @PostMapping("/reserve/spend/quantity")
-    private String saveNegativQuantityt(HttpSession session, HttpServletRequest request, Model model) {
+    public String saveNegativQuantityt(HttpSession session, HttpServletRequest request, Model model) {
         Product product = (Product) session.getAttribute("foundedProduct");
         int quantity = Integer.parseInt(request.getParameter("quantityToSpend"));
         int q = product.getReserveAmount() - quantity;

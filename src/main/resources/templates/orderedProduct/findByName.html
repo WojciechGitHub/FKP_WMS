@@ -9,6 +9,8 @@
 
 <h1>Ordered Product Form</h1>
 <form  method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
     <select name="productId">Wybierz
         <option th:each="p : ${orderedProductList}" th:value="${p.id}" th:text="${p.getProduct()}">
         </option>

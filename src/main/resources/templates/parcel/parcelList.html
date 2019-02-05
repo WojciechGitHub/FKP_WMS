@@ -23,7 +23,7 @@
     <tr th:each="parcel: ${parcels}">
         <td th:text="${parcel.name}"></td>
         <td><a th:href="@{'/orderedProduct/add/'+${parcel.id}}">Przypisz produkty do zamowienia</a></td>
-        <td><a th:href="@{'/parcel/remove/'+${parcel.id}}">Usuń</a></td>
+        <td><a th:href="@{'/parcel/deleteConfirmation/'+${parcel.id}}">Usuń</a></td>
     </tr>
 </table>
 <br>

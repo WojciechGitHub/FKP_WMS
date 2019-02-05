@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello View</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+
+
+<div class="container bg-light">
+
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand"></a>
+        <form class="form-inline" th:action="@{/logout}" method="post">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Wyloguj</button>
+        </form>
+    </nav>
+
+    <br>
+    <div class="row text-center">
+        <div class="col-12 py-3 px-lg-5 border bg-light"> <h1>System Magazynowy Fundacji Koci Pazur</h1> </div>
+    </div>
+    <br>
+    <div class="row text-center" sec:authorize="hasRole('ROLE_ADMIN')" >
+        <div class="col-12 py-1 px-lg-1">  <a th:href="@{/}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Zarządzaj użytkownikami</a></div>
+    </div>
+
+    <div class="row text-center" sec:authorize="hasRole('ROLE_ADMIN')" >
+        <div class="col-6 py-1 px-lg-1 "> <a th:href="@{/product/productList}" class="btn btn-primary btn-lg btn-block" role="button" >Zarządzaj produktami</a></div>
+        <div class=" col-6 py-1 px-lg-1 "> <a th:href="@{/parcel/parcelList}" class="btn btn-primary btn-lg btn-block" role="button" >Zarządzaj zamówieniami</a></div>
+    </div>
+
+    <div class="row text-center" sec:authorize="hasRole('ROLE_ADMIN')" >
+        <div class="col-6  py-1 px-lg-1 "> <a th:href="@{/product/reserve}" class="btn btn-primary btn-lg btn-block" role="button">Dodaj/wydaj produkt (rezerwa)</a></div>
+        <div class="col-6  py-1 px-lg-1 "> <a th:href="@{/parcel/parcelsToSpend}" class="btn btn-primary btn-lg btn-block" role="button" >Odbierz/wydaj zamowienie</a></div>
+    </div>
+    <br>
+    <br>
+    <div class="row text-center" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+        <div class="col-12 py-1 px-lg-1">  <a  th:href="@{/volunteer/productList}" class="btn btn-primary btn-lg btn-block" role="button" >Tabela produktów z opcja rezerwacji</a></div>
+    </div>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

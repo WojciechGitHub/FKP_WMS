@@ -1,9 +1,16 @@
-INSERT INTO product (grammage, order_amount,producer, description, remarks, reservation_by_volunteer, reserve_amount, sort,unit_of_grammage)
-VALUE (5, 0, 'Cats best', 'Original',null, null, 0, 'drewniany', 'L');
-INSERT INTO product (grammage,order_amount,producer,description, remarks, reservation_by_volunteer, reserve_amount, sort,unit_of_grammage)
-VALUE (20, 0, 'Benek CornCat', 'Smart Pellets', null, null, 0, 'drewniany', 'L');
-INSERT INTO product (grammage,order_amount,producer,description, remarks, reservation_by_volunteer, reserve_amount, sort,unit_of_grammage)
-VALUE (20, 0, 'Benek CornCat','Lawenda', null, null, 0, 'silikonowy', 'L');
+INSERT INTO product (grammage, order_amount,producer, description, remarks, reservation_by_volunteer, reserve_amount, sort,unit_of_grammage,type)
+VALUE (5, 0, 'Cats best', 'Original',null, null, 0, 'drewniany', 'L','kittyLitter');
+INSERT INTO product (grammage,order_amount,producer,description, remarks, reservation_by_volunteer, reserve_amount, sort,unit_of_grammage,type)
+VALUE (20, 0, 'Benek CornCat', 'Smart Pellets', null, null, 0, 'drewniany', 'L','kittyLitter');
+INSERT INTO product (grammage,order_amount,producer,description, remarks, reservation_by_volunteer, reserve_amount, sort,unit_of_grammage,type)
+VALUE (20, 0, 'Benek CornCat','Lawenda', null, null, 0, 'silikonowy', 'L','kittyLitter');
+
+INSERT INTO product (grammage, order_amount,producer, description, remarks, reservation_by_volunteer, reserve_amount, sort,unit_of_grammage,type,age)
+VALUE (200, 0, 'Animonda Carny', 'Fleischkoktail',null, null, 0, 'mokra', 'g','feed', 'kitten');
+INSERT INTO product (grammage,order_amount,producer,description, remarks, reservation_by_volunteer, reserve_amount, sort,unit_of_grammage,type,age)
+VALUE (400, 0, 'Macs', 'Rind', null, null, 0, 'mokra', 'g','feed','adult');
+INSERT INTO product (grammage,order_amount,producer,description, remarks, reservation_by_volunteer, reserve_amount, sort,unit_of_grammage,type)
+VALUE (1, 0, 'Sanabelle','No grain - poultry', null, null, 0, 'sucha', 'kg','feed');
 
 INSERT INTO barcode (code, product_id) VALUE ('11',1);
 INSERT INTO barcode (code,product_id) VALUE ('12',2);

@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.fkpsystem.model.Barcode;
 import pl.fkpsystem.repository.BarcodeRepository;
+import pl.fkpsystem.service.BarcodeService;
 
 import javax.validation.Valid;
 
@@ -17,8 +18,7 @@ import javax.validation.Valid;
 public class BarcodeController {
 
     @Autowired
-    BarcodeRepository barcodeRepository;
-
+    BarcodeService barcodeService;
 
     @GetMapping("/add/{product}")
     public String addBarcode(@PathVariable String product , Model model) {
@@ -27,22 +27,16 @@ public class BarcodeController {
         return "barcode/barcodeForm";
     }
 
-
     @PostMapping("/add/{product}")
-    private String saveNewBarcode(@Valid Barcode barcode, BindingResult bindingResult) {
+    public String saveNewBarcode(@Valid Barcode barcode, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "barcode/barcodeForm";
         }
-
-        if(barcodeRepository.findByCode(barcode.getCode())!=null){
-           Barcode existingBarcode= barcodeRepository.findByCode(barcode.getCode());
-           existingBarcode.setProduct(barcode.getProduct());
-           barcodeRepository.save(existingBarcode);
+        if(barcodeService.findExistingBarcode(barcode)!=null){
+           barcodeService.assignExistingBarcodeToNewProduct(barcode);
            return "redirect:/product/productList";
         }
-
-
-        barcodeRepository.save(barcode);
+        barcodeService.saveBarcode(barcode);
         return "redirect:/product/productList";
     }
 
