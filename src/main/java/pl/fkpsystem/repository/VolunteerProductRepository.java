@@ -2,10 +2,11 @@ package pl.fkpsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import pl.fkpsystem.model.VolunteerProduct;
 
 import java.util.List;
-
+@Repository
 public interface VolunteerProductRepository extends JpaRepository<VolunteerProduct, Long>{
 
     @Query(value = "SELECT * FROM volunteer_product WHERE volunteer_product.volunteer_id=?1 and volunteer_product.parcel_id=?2 and volunteer_product.ordered_product_id=?3", nativeQuery = true)

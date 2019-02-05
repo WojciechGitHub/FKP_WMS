@@ -7,14 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.fkpsystem.model.*;
-import pl.fkpsystem.repository.*;
-import pl.fkpsystem.model.*;
-import pl.fkpsystem.repository.*;
+import pl.fkpsystem.service.ParcelService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("parcel")
@@ -22,23 +19,11 @@ import java.util.Set;
 public class ParcelController {
 
     @Autowired
-    private ParcelRepository parcelRepository;
-
-    @Autowired
-    private OrderedProductRepository orderedProductRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private VolunteerRepository volunteerRepository;
-
-    @Autowired
-    private VolunteerProductRepository volunteerProductRepository;
+    ParcelService parcelService;
 
     @ModelAttribute("parcels")
     public List<Parcel> parcelList() {
-        return parcelRepository.findAll();
+        return parcelService.parcels();
     }
 
     @RequestMapping("/parcelList")
@@ -57,20 +42,19 @@ public class ParcelController {
         if (bindingResult.hasErrors()) {
             return "parcel/parcelForm";
         }
-        parcelRepository.save(parcel);
+        parcelService.saveParcel(parcel);
         return "redirect:/parcel/parcelList";
     }
 
     @GetMapping("/deleteConfirmation/{parcelId}")
     public String deleteConfirmation(@PathVariable long parcelId, Model model) {
-        model.addAttribute("parcelId",parcelId);
+        model.addAttribute("parcelId", parcelId);
         return "parcel/deleteConfirmation";
     }
 
     @GetMapping("/deleteConfirmation/{parcelId}/remove")
     public String deleteParcel(@PathVariable long parcelId) {
-        Parcel parcel = parcelRepository.getOne(parcelId);
-        parcelRepository.delete(parcel);
+        parcelService.deleteParcel(parcelId);
         return "redirect:/parcel/parcelList";
     }
 
@@ -81,8 +65,7 @@ public class ParcelController {
 
     @RequestMapping("/receive/{parcelId}")
     public String addParcel(@PathVariable long parcelId, Model model) {
-        Parcel parcel = parcelRepository.getOne(parcelId);
-        model.addAttribute("products", parcel.getOrderedProducts());
+        model.addAttribute("products", parcelService.getOrderedProductsFromParcel(parcelId));
         return "orderedProduct/received";
     }
 
@@ -91,83 +74,57 @@ public class ParcelController {
         return "orderedProduct/find";
     }
 
+
     @PostMapping("/receive/{parcelId}/findByBarcode")
     public String fondedProductByBarcode(HttpServletRequest request, @PathVariable long parcelId, Model model) {
-        String code = request.getParameter("code");
-        OrderedProduct orderedProduct = orderedProductRepository.findOrderedProductByBarcodeAndParcelId(parcelId, code);
+        OrderedProduct orderedProduct = parcelService.findByParcelIdAndBarcode(request, parcelId);
         if (orderedProduct != null) {
             model.addAttribute("orderedProduct", orderedProduct);
             return "orderedProduct/found";
         }
         return "orderedProduct/find";
     }
-//
 
     @GetMapping("/receive/{parcelId}/findByName")
     public String findProductByName(Model model, @PathVariable long parcelId) {
-        model.addAttribute("orderedProductList", orderedProductRepository.findAllByParcelId(parcelId));
+        model.addAttribute("orderedProductList", parcelService.getOrderedProductsFromParcel(parcelId));
         return "orderedProduct/findByName";
     }
 
     @PostMapping("/receive/{parcelId}/findByName")
     public String fondedProductByName(HttpServletRequest request, @PathVariable long parcelId, Model model) {
-
-        long id = Long.parseLong(request.getParameter("productId"));
-        OrderedProduct orderedProduct = orderedProductRepository.getOne(id);
-        model.addAttribute("orderedProduct", orderedProduct);
+        model.addAttribute("orderedProduct", parcelService.findByIdFromRequest(request));
         return "orderedProduct/found";
-
     }
 
-    //
     @PostMapping("/receive/{parcelId}/addQuantity/{productId}")
     public String addQuantity(HttpServletRequest request, @PathVariable long productId) {
-        int quantity = Integer.parseInt(request.getParameter("quantityToAdd"));
-        OrderedProduct orderedProduct = orderedProductRepository.getOne(productId);
-        Product product = orderedProduct.getProduct();
-        orderedProduct.setReceivedQuantity(orderedProduct.getReceivedQuantity() + quantity);
-        product.setOrderAmount(product.getOrderAmount() + quantity);
-        orderedProductRepository.save(orderedProduct);
-        productRepository.save(product);
+        parcelService.saveQuantityOfReceivedOrderedProduct(request, productId);
         return "redirect:/parcel/receive/{parcelId}";
     }
 
-
     @RequestMapping("/spend/{parcelId}")
     public String volunteerList(@PathVariable long parcelId, Model model) {
-        Set<Volunteer> volunteerList = volunteerRepository.findVolunteersByParcel(parcelId);
-        model.addAttribute("volunteerList", volunteerList);
+        model.addAttribute("volunteerList", parcelService.volunteersFromParcel(parcelId));
         return "orderedProduct/volunteerList";
     }
 
     @RequestMapping("/spend/{parcelId}/volunteer/{volunteerId}")
     public String volunteerProductList(@PathVariable long parcelId, @PathVariable long volunteerId, Model model) {
-        List<VolunteerProduct> volunteerProductList = volunteerProductRepository.findVolunteerProductsByParcelIdAndVolunteerId(parcelId, volunteerId);
-        model.addAttribute("volunteerProductList", volunteerProductList);
-        model.addAttribute("volunteer", volunteerRepository.getOne(volunteerId));
+        model.addAttribute("volunteerProductList", parcelService.volunteersFromParcel(parcelId));
+        model.addAttribute("volunteer", parcelService.findVolunteer(volunteerId));
         return "orderedProduct/volunteerProductList";
     }
 
     @GetMapping("/spend/{parcelId}/volunteer/{volunteerId}/product/{volunteerProductId}")
     public String volunteerProductSpendQuantity(@PathVariable long volunteerProductId, Model model) {
-        Product product = volunteerProductRepository.getOne(volunteerProductId).getOrderedProduct().getProduct();
-        model.addAttribute("product", product);
+        model.addAttribute("product", parcelService.productOrderedByVolunteer(volunteerProductId));
         return "orderedProduct/productSpend";
     }
 
     @PostMapping("/spend/{parcelId}/volunteer/{volunteerId}/product/{volunteerProductId}")
-    public String volunteerProductSpendSaveQuantity(@PathVariable long volunteerId, @PathVariable long parcelId, @PathVariable long volunteerProductId, Model model, @RequestParam int quantityToSpend) {
-
-        VolunteerProduct volunteerProduct = volunteerProductRepository.getOne(volunteerProductId);
-        OrderedProduct orderedProduct = orderedProductRepository.getOne(volunteerProduct.getOrderedProduct().getId());
-        Product product = volunteerProduct.getOrderedProduct().getProduct();
-
-        volunteerProduct.setDistendedQuantity(volunteerProduct.getDistendedQuantity() + quantityToSpend);
-        orderedProduct.setDistendedQuantity(orderedProduct.getDistendedQuantity() + quantityToSpend);
-        product.setOrderAmount(product.getOrderAmount() - quantityToSpend);
-        volunteerProductRepository.save(volunteerProduct);
-        orderedProductRepository.save(orderedProduct);
-        productRepository.save(product);
+    public String volunteerProductSpendSaveQuantity(@PathVariable long volunteerId, @PathVariable long parcelId, @PathVariable long volunteerProductId, @RequestParam int quantityToSpend) {
+        parcelService.spendOrderedQuantityOfVolunteerProduct(volunteerProductId, quantityToSpend);
         return "redirect:/parcel/spend/" + parcelId + "/volunteer/" + volunteerId;
     }
 

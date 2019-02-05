@@ -10,7 +10,6 @@ import pl.fkpsystem.repository.VolunteerRepository;
 
 @Service
 public class VolunteerService {
-
     @Autowired
     private final VolunteerRepository volunteerRepository;
     @Autowired

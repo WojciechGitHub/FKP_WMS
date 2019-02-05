@@ -7,7 +7,6 @@ import pl.fkpsystem.repository.BarcodeRepository;
 
 @Service
 public class BarcodeService {
-
     @Autowired
     BarcodeRepository barcodeRepository;
 
