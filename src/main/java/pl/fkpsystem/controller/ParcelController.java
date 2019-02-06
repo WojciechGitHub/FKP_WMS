@@ -70,7 +70,8 @@ public class ParcelController {
     }
 
     @GetMapping("/receive/{parcelId}/findByBarcode")
-    public String findProductByBarcode() {
+    public String findProductByBarcode(@PathVariable long parcelId, Model model) {
+        model.addAttribute("parcelId",parcelId);
         return "orderedProduct/find";
     }
 
@@ -88,6 +89,7 @@ public class ParcelController {
     @GetMapping("/receive/{parcelId}/findByName")
     public String findProductByName(Model model, @PathVariable long parcelId) {
         model.addAttribute("orderedProductList", parcelService.getOrderedProductsFromParcel(parcelId));
+        model.addAttribute("parcelId",parcelId);
         return "orderedProduct/findByName";
     }
 
@@ -111,14 +113,16 @@ public class ParcelController {
 
     @RequestMapping("/spend/{parcelId}/volunteer/{volunteerId}")
     public String volunteerProductList(@PathVariable long parcelId, @PathVariable long volunteerId, Model model) {
-        model.addAttribute("volunteerProductList", parcelService.volunteersFromParcel(parcelId));
+        model.addAttribute("volunteerProductList", parcelService.volunteerProductList(parcelId,volunteerId));
         model.addAttribute("volunteer", parcelService.findVolunteer(volunteerId));
         return "orderedProduct/volunteerProductList";
     }
 
     @GetMapping("/spend/{parcelId}/volunteer/{volunteerId}/product/{volunteerProductId}")
-    public String volunteerProductSpendQuantity(@PathVariable long volunteerProductId, Model model) {
+    public String volunteerProductSpendQuantity(@PathVariable long parcelId,@PathVariable long volunteerId,@PathVariable long volunteerProductId, Model model) {
         model.addAttribute("product", parcelService.productOrderedByVolunteer(volunteerProductId));
+        model.addAttribute("volunteerId", volunteerId);
+        model.addAttribute("parcelId", parcelId);
         return "orderedProduct/productSpend";
     }
 
