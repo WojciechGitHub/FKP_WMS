@@ -49,6 +49,7 @@ public class ParcelController {
     @GetMapping("/deleteConfirmation/{parcelId}")
     public String deleteConfirmation(@PathVariable long parcelId, Model model) {
         model.addAttribute("parcelId", parcelId);
+        model.addAttribute("parcel", parcelService.findParcelById(parcelId));
         return "parcel/deleteConfirmation";
     }
 

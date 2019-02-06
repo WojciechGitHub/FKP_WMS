@@ -36,6 +36,10 @@ public class ParcelService {
         parcelRepository.delete(parcel);
     }
 
+    public Parcel findParcelById(long parcelId){
+        return parcelRepository.getOne(parcelId);
+    }
+
     public List<OrderedProduct> getOrderedProductsFromParcel(long parcelId) {
         Parcel parcel = parcelRepository.getOne(parcelId);
         return parcel.getOrderedProducts();
