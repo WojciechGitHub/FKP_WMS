@@ -96,6 +96,7 @@ public class ParcelController {
     @PostMapping("/receive/{parcelId}/findByName")
     public String fondedProductByName(HttpServletRequest request, @PathVariable long parcelId, Model model) {
         model.addAttribute("orderedProduct", parcelService.findByIdFromRequest(request));
+        model.addAttribute("parcelId",parcelId);
         return "orderedProduct/found";
     }
 

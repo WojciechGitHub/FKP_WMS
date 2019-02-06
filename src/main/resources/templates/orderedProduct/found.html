@@ -29,11 +29,11 @@
             </div>
             <div class="row">
                 <h5 class="col-2" th:text="'Rezerwa:'"></h5>
-                <h5 class="col-1" th:text="${orderedProduct.getProduct().getReserveAmount()}+' szt.'"></h5>
+                <h5 class="col-2" th:text="${orderedProduct.getProduct().getReserveAmount()}+' szt.'"></h5>
             </div>
             <div class="row">
                 <h5 class="col-2" th:text="'Zamówienie:'"></h5>
-                <h5 class="col-1" th:text="${orderedProduct.getProduct().getOrderAmount()}+' szt.'"></h5>
+                <h5 class="col-2" th:text="${orderedProduct.getProduct().getOrderAmount()}+' szt.'"></h5>
             </div>
     </div>
     </div>
@@ -59,7 +59,7 @@
     <br>
     <br>
     <br>
-    <h4><a th:href="@{/product/reserve}" class="btn btn-warning btn-lg btn-block" role="button">Wróć</a>
+    <h4><a th:href="@{'/product/receive'+${parcelId}" class="btn btn-warning btn-lg btn-block" role="button">Wróć</a>
     </h4>
 </div>
 

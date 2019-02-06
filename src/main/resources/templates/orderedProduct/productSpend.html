@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Znajdź produkt XXX</title>
+    <title>Znajdź produkt</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
@@ -31,17 +31,17 @@
             </div>
             <div class="row">
                 <h5 class="col-2" th:text="'Rezerwa:'"></h5>
-                <h5 class="col-1" th:text="${product.getReserveAmount()}+' szt.'"></h5>
+                <h5 class="col-2" th:text="${product.getReserveAmount()}+' szt.'"></h5>
             </div>
             <div class="row">
                 <h5 class="col-2" th:text="'Zamówienie:'"></h5>
-                <h5 class="col-1" th:text="${product.getOrderAmount()}+' szt.'"></h5>
+                <h5 class="col-2" th:text="${product.getOrderAmount()}+' szt.'"></h5>
             </div>
         </div>
     </div>
     <br>
     <br>
-    <h3>Wprowadź ilość</h3>
+    <h3>Wprowadź ilość, którą wydajesz</h3>
     <form method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
@@ -53,7 +53,7 @@
 
         <div class="form-group row">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Dodaj</button>
+                <button type="submit" class="btn btn-primary">Wydaj</button>
             </div>
         </div>
     </form>
