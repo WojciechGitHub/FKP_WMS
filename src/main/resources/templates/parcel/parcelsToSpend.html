@@ -37,8 +37,10 @@
         <tbody>
         <tr th:each="parcel: ${parcels}">
             <td th:text="${parcel.name}"></td>
-            <td><a class="btn btn-outline-primary btn-lg btn-block" role="button" th:href="@{'/parcel/receive/'+${parcel.id}}">Odbierz zamówienie</a></td>
-            <td><a class="btn btn-outline-primary btn-lg btn-block" role="button" th:href="@{'/parcel/spend/'+${parcel.id}}">Wydaj zamówienie</a></td>
+            <td><a class="btn btn-outline-primary btn-lg btn-block" role="button"
+                   th:href="@{'/parcel/receive/'+${parcel.id}}">Odbierz zamówienie</a></td>
+            <td><a class="btn btn-outline-primary btn-lg btn-block" role="button"
+                   th:href="@{'/parcel/spend/'+${parcel.id}}">Wydaj zamówienie</a></td>
         </tr>
         </tbody>
     </table>
@@ -49,23 +51,6 @@
     <h4><a th:href="@{/}" class="btn btn-warning btn-lg btn-block" role="button">Powrót</a>
     </h4>
 </div>
-<!--<h1>Tabela zamówień</h1>
-
-<table border="1">
-    <tr>
-        <th>Nazwa</th>
-        <th>Odbierz zamówienie</th>
-        <th>Wydaj zamówienie</th>
-    </tr>
-    <tr th:each="parcel: ${parcels}">
-        <td th:text="${parcel.name}"></td>
-        <td><a th:href="@{'/parcel/receive/'+${parcel.id}}">Odbierz zamówienie</a></td>
-        <td><a th:href="@{'/parcel/spend/'+${parcel.id}}">Wydaj zamówienie</a></td>
-    </tr>
-</table>
-<br>
-<br>
-<a th:href="@{/}">Powrót na strone startowa</a>-->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -101,6 +101,7 @@ public class ProductController {
     @GetMapping("/delete/{id}")
     public String deleteKittyLitter(@PathVariable long id, Model model) {
         model.addAttribute("id", id);
+        model.addAttribute("product",productService.findProductById(id));
         return "product/productDelete";
     }
 

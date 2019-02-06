@@ -2,13 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Product Delete</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Potwierdzenie usunięcia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 <body>
-<a th:href="@{'/product/delete/'+${id}+'/confirmed'}">TAK</a>
-<br>
-<br>
-<a th:href="@{/product/productList}">NIE</a>
+<div class="container bg-light">
+
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand"></a>
+        <form class="form-inline" th:action="@{/logout}" method="post">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Wyloguj</button>
+        </form>
+    </nav>
+
+    <div class="row text-center">
+        <div class="col-12 py-3 px-lg-5 border-top border-bottom border-top bg-light"><h1>System Magazynowy Fundacji
+            Koci Pazur</h1></div>
+    </div>
+    <br>
+    <div class="row">
+        <h3 class="col-12 text-center" th:text="'Czy na pewno chcesz usunąć '+${product}"></h3>
+    </div>
+    <br>
+    <div class="row">
+        <h5 class="col-6"><a class="btn btn-outline-success btn-lg btn-block" role="button"
+                             th:href="@{'/product/delete/'+${id}+'/confirmed'}">TAK</a></h5>
+        <h5 class="col-6"><a class="btn btn-outline-danger btn-lg btn-block" role="button"
+                             th:href="@{/product/productList}">NIE</a></h5>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
 </body>
 </html>
