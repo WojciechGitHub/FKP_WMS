@@ -1,20 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>FKP_WMS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Zaloguj się</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 <body>
-<h1>Custom login page</h1>
-<form th:action="@{/login}" method="post">
-    <div><label> Użytkowik: <input type="text" name="username"/> </label></div>
-    <div><label> Hasło: <input type="password" name="password"/> </label></div>
-    <div th:if="${param.error}">Nie poprawne dane logowania</div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-<br>
-<br>
-<h1>WTF</h1>
-<p><a th:href="@{/registration}">Rejestracja</a></p>
+
+<div class="container bg-light">
+    <div class="row text-center">
+        <div class="col-12 py-3 px-lg-5 border-bottom bg-light"><h1>System Magazynowy Fundacji Koci Pazur</h1></div>
+    </div>
+    <br>
+    <h3>Zaloguj się</h3>
+    <form th:action="@{/login}" method="post">
+        <div class="form-group row">
+            <label for="login" class="col-sm-1 col-form-label">Login</label>
+            <div class="col-sm-4">
+                <input type="text" name="username" class="form-control" id="login" placeholder="Login">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="haslo" class="col-sm-1 col-form-label">Hasło</label>
+            <div class="col-sm-4">
+                <input type="password" name="password" class="form-control" id="haslo" placeholder="Hasło">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label th:if="${param.error}" class="col-sm-10 col-form-label text-danger">Nie poprawne dane
+                logowania</label>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Zaloguj się</button>
+            </div>
+        </div>
+    </form>
+
+    <br>
+    <br>
+    <h4>Nie posiadasz konta?</h4>
+    <h4><a th:href="@{/registration}" class="btn btn-primary" role="button">Zarejestruj się!</a></h4>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
 </body>
 </html>

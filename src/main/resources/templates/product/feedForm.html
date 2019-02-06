@@ -21,7 +21,7 @@
     <p></p>
 
     <label th:if="${#fields.hasErrors('unitOfGrammage')}" th:errors="*{unitOfGrammage}"></label>
-    <p>Rodzaj żwirku: <select th:field="*{sort}">
+    <p>Rodzaj karmy: <select th:field="*{sort}">
         <option th:value="''" th:text="--"></option>
         <option th:value="'morka'" th:text="mokra"></option>
         <option th:value="'sucha'" th:text="sucha"></option>
@@ -35,6 +35,7 @@
         <option th:value="'senior'" th:text="senior"></option>
     </select></p>
     <p>Kod kreskowy: <input type="text" th:field="*{barcodes}"/></p>
+    <label th:if="${#fields.hasErrors('barcodes')}" th:errors="*{barcodes}"></label>
     <p><input type="submit" value="Submit"/></p>
 </form>
 <br>
