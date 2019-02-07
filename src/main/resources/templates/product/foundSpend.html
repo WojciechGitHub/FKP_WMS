@@ -38,7 +38,7 @@
     </div>
     <br>
     <br>
-    <h3>Wprowadź ilość do dodania</h3>
+    <h3>Wprowadź ilość do wydania</h3>
     <form th:action="@{'spend/quantity'}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
@@ -61,15 +61,6 @@
     <h4><a th:href="@{/product/reserve}" class="btn btn-warning btn-lg btn-block" role="button">Wróć</a>
     </h4>
 </div>
-<!--<p th:text="${foundedProduct.producer}"></p>
-<p th:text="${foundedProduct.description}"></p>
-<br>
-<form th:action="@{'spend/quantity'}" method="post">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-
-    <p>Ilość: <input type="text" name="quantityToAdd"/></p>
-    <p><input type="submit" value="Submit"/></p>
-</form>-->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
