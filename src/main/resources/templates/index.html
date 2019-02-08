@@ -26,7 +26,7 @@
     </div>
     <br>
     <div class="row text-center" sec:authorize="hasRole('ROLE_ADMIN')" >
-        <div class="col-12 py-1 px-lg-1">  <a th:href="@{/}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Zarządzaj użytkownikami</a></div>
+        <div class="col-12 py-1 px-lg-1">  <a th:href="@{/admin/volunteerList}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Zarządzaj użytkownikami</a></div>
     </div>
 
     <div class="row text-center" sec:authorize="hasRole('ROLE_ADMIN')" >

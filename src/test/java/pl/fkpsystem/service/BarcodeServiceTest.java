@@ -1,0 +1,51 @@
+package pl.fkpsystem.service;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import pl.fkpsystem.model.Barcode;
+import pl.fkpsystem.repository.BarcodeRepository;
+
+import static org.junit.Assert.*;
+
+@RunWith(MockitoJUnitRunner.class)
+public class BarcodeServiceTest {
+
+    private BarcodeService barcodeService;
+
+    @Mock
+    private BarcodeRepository barcodeRepository;
+
+    @Before
+    public void setUp(){
+        barcodeService=new BarcodeService();
+    }
+
+    @Test
+    public void findExistingBarcode() {
+        //given
+        Barcode barcode=new Barcode();
+        barcode.setCode("123");
+        org.mockito.Mockito.when(barcodeRepository.findByCode(barcode.getCode())).thenReturn(barcode);
+        //when
+        Barcode result=barcodeService.findExistingBarcode(barcode);
+        //then
+        assertEquals("123",result.getCode());
+    }
+
+    @Test
+    public void assignExistingBarcodeToNewProduct() {
+    }
+
+    @Test
+    public void saveBarcode() {
+        //given
+        Barcode barcode=new Barcode();
+        org.mockito.Mockito.when(barcodeRepository.save(barcode)).thenReturn(barcode);
+        //when
+        //Barcode result=barcodeService.saveBarcode(barcode);
+        //then
+    }
+}

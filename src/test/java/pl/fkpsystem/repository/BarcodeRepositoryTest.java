@@ -20,7 +20,7 @@ public class BarcodeRepositoryTest {
     private BarcodeRepository barcodeRepository;
 
     @Test
-    public void shouldFindByCode() {
+    public void shouldFindByCodeReturnObject() {
         //given
         Barcode barcode1=new Barcode();
         barcode1.setCode("123");
@@ -29,5 +29,17 @@ public class BarcodeRepositoryTest {
         Barcode result=barcodeRepository.findByCode("123");
         //then
         assertEquals(barcode1.getCode(), result.getCode());
+    }
+
+    @Test
+    public void shouldFindByCodeReturnNull() {
+        //given
+        Barcode barcode1=new Barcode();
+        barcode1.setCode("123");
+        testEntityManager.persist(barcode1);
+        //when
+        Barcode result=barcodeRepository.findByCode("100");
+        //then
+        assertEquals(null, result);
     }
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Przypisz uprawnienia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+<div class="container bg-light">
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand"></a>
+        <form class="form-inline" th:action="@{/logout}" method="post">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Wyloguj</button>
+        </form>
+    </nav>
+    <div class="row text-center">
+        <div class="col-12 py-3 px-lg-5 border-top border-bottom border-top bg-light"><h1>System Magazynowy Fundacji
+            Koci Pazur</h1></div>
+    </div>
+    <br>
+    <h3 th:text="'Przyznaj uprawenia użytkownikowi '+${volunteer.getName()}"></h3>
+    <form method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Uprawnienia: </label>
+            <div class="col-sm-6">
+                <select th:name="rightId">
+                    <option th:value="''" th:text="--"></option>
+                    <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.getName()}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Dodaj</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h4><a th:href="@{/admin/volunteerList}" class="btn btn-warning btn-lg btn-block" role="button">Wróć</a>
+    </h4>
+
+
+</div>
+</body>
+</html>
