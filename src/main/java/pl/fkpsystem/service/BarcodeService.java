@@ -1,14 +1,17 @@
 package pl.fkpsystem.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 import pl.fkpsystem.model.Barcode;
 import pl.fkpsystem.repository.BarcodeRepository;
 
 @Service
+@RequiredArgsConstructor
 public class BarcodeService {
-    @Autowired
-    BarcodeRepository barcodeRepository;
+
+    private final BarcodeRepository barcodeRepository;
 
     public Barcode findExistingBarcode(Barcode barcode) {
         return barcodeRepository.findByCode(barcode.getCode());

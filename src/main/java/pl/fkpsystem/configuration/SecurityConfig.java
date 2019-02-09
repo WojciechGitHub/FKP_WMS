@@ -44,13 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+       http.authorizeRequests()
                 .anyRequest().permitAll()
                 .and().formLogin().loginPage("/login")
                 .and().logout().logoutSuccessUrl("/");
-               /* .and()
-                .httpBasic();*/
-        /*.and().csrf().disable();*/
     }
 
   /*  @Override

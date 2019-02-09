@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 import pl.fkpsystem.model.Barcode;
 import pl.fkpsystem.repository.BarcodeRepository;
 
@@ -20,7 +22,7 @@ public class BarcodeServiceTest {
 
     @Before
     public void setUp(){
-        barcodeService=new BarcodeService();
+        barcodeService=new BarcodeService( barcodeRepository);
     }
 
     @Test

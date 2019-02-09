@@ -27,15 +27,12 @@ public class VolunteerProductRepositoryTest {
     public void shouldFindVolunteerProductByVolunteerIdAndParcelIdAndOrderedProductId() {
         //given
         Volunteer volunteer=new Volunteer();
-        volunteer.setId(3);
         testEntityManager.persist(volunteer);
 
         Parcel parcel=new Parcel();
-        parcel.setId(5);
         testEntityManager.persist(parcel);
 
         OrderedProduct orderedProduct=new OrderedProduct();
-        orderedProduct.setId(7);
         testEntityManager.persist(orderedProduct);
 
         VolunteerProduct volunteerProduct=new VolunteerProduct();
@@ -45,10 +42,18 @@ public class VolunteerProductRepositoryTest {
         testEntityManager.persist(volunteerProduct);
 
         //when
-        VolunteerProduct result1=volunteerProductRepository.findVolunteerProductByVolunteerIdAndParcelIdAndOrderedProductId(3l,5l,7l);
+        VolunteerProduct result1=volunteerProductRepository.findVolunteerProductByVolunteerIdAndParcelIdAndOrderedProductId(volunteer.getId(),parcel.getId(),orderedProduct.getId());
         //then
         assertEquals(volunteerProduct,result1);
     }
+
+
+
+
+
+
+
+
 
     @Test
     public void findVolunteerProductsByParcelIdAndVolunteerId() {
@@ -58,7 +63,6 @@ public class VolunteerProductRepositoryTest {
     public void shouldFindAllByParcelId() {
         //given
         Parcel parcel=new Parcel();
-        parcel.setId(5);
         testEntityManager.persist(parcel);
 
         VolunteerProduct volunteerProduct1=new VolunteerProduct();
@@ -69,7 +73,7 @@ public class VolunteerProductRepositoryTest {
         testEntityManager.persist(volunteerProduct2);
 
         //when
-        List<VolunteerProduct> list=volunteerProductRepository.findAllByParcelId(5l);
+        List<VolunteerProduct> list=volunteerProductRepository.findAllByParcelId(parcel.getId());
 
         //then
         assertThat(list).containsExactly(volunteerProduct1,volunteerProduct2);
