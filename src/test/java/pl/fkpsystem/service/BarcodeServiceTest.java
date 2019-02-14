@@ -41,13 +41,5 @@ public class BarcodeServiceTest {
     public void assignExistingBarcodeToNewProduct() {
     }
 
-    @Test
-    public void saveBarcode() {
-        //given
-        Barcode barcode=new Barcode();
-        org.mockito.Mockito.when(barcodeRepository.save(barcode)).thenReturn(barcode);
-        //when
-        //Barcode result=barcodeService.saveBarcode(barcode);
-        //then
-    }
+
 }

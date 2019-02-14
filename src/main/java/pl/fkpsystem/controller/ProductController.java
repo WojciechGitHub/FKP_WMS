@@ -127,7 +127,7 @@ public class ProductController {
             model.addAttribute("foundedProduct", productService.findProductByCode(request));
             return "product/foundAdd";
         }
-        return "redirect:/product/findAdd";
+        return "redirect:/product/reserve/get";
     }
 
     @GetMapping("/reserve/addByName")
@@ -159,7 +159,7 @@ public class ProductController {
             model.addAttribute("foundedProduct", productService.findProductByCode(request));
             return "product/foundSpend";
         }
-        return "redirect:/product/findSpend";
+        return "redirect:/product/reserve/spend";
     }
 
     @GetMapping("/reserve/spendByName")

@@ -20,18 +20,15 @@ import static org.springframework.test
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test
         .web.servlet.result.MockMvcResultMatchers.view;
-import static org.springframework
-        .test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-import org.mockito.Mockito;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc(secure = false)
+@AutoConfigureMockMvc(secure = true)
 public class AdminControllerTest {
 
     @Autowired
