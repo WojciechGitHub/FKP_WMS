@@ -25,9 +25,9 @@ INSERT INTO role(name) VALUES('ROLE_REGISTERED');
 INSERT INTO role(name) VALUES('ROLE_USER');
 INSERT INTO role(name) VALUES('ROLE_ADMIN');
 
-INSERT INTO volunteer (name,password,enabled) VALUES ('Melpomena','$2a$10$SSr.8lE4jm7BeniEsuJ3OOt9EMF2ZKfWFIVTVEhU3kXCUwTLqC9EK',1);
-INSERT INTO volunteer (name,password,enabled) VALUES ('Wegorek','$2a$10$SSr.8lE4jm7BeniEsuJ3OOt9EMF2ZKfWFIVTVEhU3kXCUwTLqC9EK',1);
-INSERT INTO volunteer (name,password,enabled) VALUES ('Wojtek','$2a$10$SSr.8lE4jm7BeniEsuJ3OOt9EMF2ZKfWFIVTVEhU3kXCUwTLqC9EK',1);
+INSERT INTO volunteer (name,password,enabled) VALUES ('Registered','$2a$10$SSr.8lE4jm7BeniEsuJ3OOt9EMF2ZKfWFIVTVEhU3kXCUwTLqC9EK',1);
+INSERT INTO volunteer (name,password,enabled) VALUES ('User','$2a$10$SSr.8lE4jm7BeniEsuJ3OOt9EMF2ZKfWFIVTVEhU3kXCUwTLqC9EK',1);
+INSERT INTO volunteer (name,password,enabled) VALUES ('Admin','$2a$10$SSr.8lE4jm7BeniEsuJ3OOt9EMF2ZKfWFIVTVEhU3kXCUwTLqC9EK',1);
 
 INSERT INTO volunteer_role (volunteer_id,role_id) VALUES (1,1);
 INSERT INTO volunteer_role (volunteer_id,role_id) VALUES (2,2);
