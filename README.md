@@ -1,3 +1,5 @@
+# Project title
+Warehouse Management System for Foundation Koci Pazur in Poznan
 # Motivation
 Main motivation for this project was building a simply warehouse management system, that will help to control in easy way all of the supplies
 and orders.
