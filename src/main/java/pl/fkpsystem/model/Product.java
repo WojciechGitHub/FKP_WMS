@@ -56,4 +56,6 @@ public class Product {
     public String toString() {
         return producer + " " + description + " " + grammage + " " + unitOfGrammage;
     }
+
+    
 }
